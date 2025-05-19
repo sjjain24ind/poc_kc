@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # 1. Keycloak
+  keycloak:
+    image: keycloak-custom  # Path to the custom Dockerfile
+
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+      KC_HOSTNAME: localhost
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY: "edge"
+      KC_LOGIN_REQUIRED: "true"  # Force login
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    deploy:
+      replicas: 1
+
+  # 2. PostgreSQL
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    deploy:
+      replicas: 1
+
+  #3. Golang Admin App
+  admin-app:
+    image: admin-app:latest
+    ports:
+      - "9081:9081"
+    depends_on:
+      - keycloak
+    deploy:
+      replicas: 1
+  
+volumes:
+  postgres_data:

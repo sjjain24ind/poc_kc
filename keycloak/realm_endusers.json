@@ -1,0 +1,59 @@
+{
+    "realm": "EndUsers",
+    "enabled": true,
+    "users": [
+      {
+        "username": "User1",
+        "email": "user1@example.com",
+        "enabled": true,
+        "credentials": [
+          {
+            "type": "password",
+            "value": "Shail@123",
+            "temporary": false
+          }
+        ]
+      },
+      {
+        "username": "User2",
+        "email": "user2@example.com",
+        "enabled": true,
+        "credentials": [
+          {
+            "type": "password",
+            "value": "Shail@123",
+            "temporary": false
+          }
+        ]
+      }
+    ],
+    "clients": [
+      {
+        "clientId": "endusers-client",
+        "enabled": true,
+        "directAccessGrantsEnabled": true, 
+        "standardFlowEnabled": true ,
+        "publicClient": true,
+        "redirectUris": [
+          "http://localhost:8080/*"
+        ],
+        "webOrigins": [
+          "http://localhost:8080"
+        ],
+        "protocolMappers": [
+          {
+            "name": "Audience Mapper",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-audience-mapper",
+            "consentRequired": false,
+            "config": {
+              "included.client.audience": "endusers-client",
+              "id.token.claim": "true",
+              "access.token.claim": "true"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

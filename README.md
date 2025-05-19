@@ -34,7 +34,8 @@
                Direct grant access enabled 
 
    GO LANG Admin app POC is being evolved (you can contribute )
-   Go lang admin app available on localhost:9081/login.html 
+   Go lang admin app available on -
+      localhost:9081/login.html 
 
   NOTE : Though postgraceSQL container is coming up in swarm
 
